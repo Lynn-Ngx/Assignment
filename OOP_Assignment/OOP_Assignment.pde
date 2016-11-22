@@ -42,9 +42,9 @@ void setup()
 void draw() 
 {
   backgroundFade();
-
-  image(img1, 260, 410, 150, 150);
+  
   image(img3, 480, -10, 700, 400);
+  walle();
   eve();
 }
 
@@ -81,7 +81,14 @@ void eve()
   for (int i = 0; i != NEWEST;
   ellipse(x[i] = x[i + 1], y[i] = y[i + 1], i, i++) );
   ellipse(x[NEWEST] = mouseX, y[NEWEST] = mouseY + 120, NEWEST, NEWEST);
-  
+}
+
+void walle()
+{
+  image(img1, 260, 410, 150, 150);
+  minim = new Minim(this);
+  player = minim.loadFile("WalleVoice.mp3", 2048);
+  player.play(); 
 }
 
 void image()
