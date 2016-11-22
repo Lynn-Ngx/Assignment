@@ -47,10 +47,27 @@ void setup()
 void draw() 
 {
   backgroundFade();
+  font();
   
   image(img3, 480, -10, 700, 400);
   walle();
   eve();
+}
+
+void font()
+{
+  fill(255, 0, 0);
+  noStroke();
+  ellipse(890, 480, 180, 180);
+  
+  PFont f = createFont("Impact", 150);
+  String s = "W";
+  String s2 = "L  L         E";
+  fill(255);
+  textFont(f);
+  text(s, 100, 540);
+  text(s2, 450, 540);
+  ellipse(730, 480, 50, 50);
 }
 
 void backgroundFade()
