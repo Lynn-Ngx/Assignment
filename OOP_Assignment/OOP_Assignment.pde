@@ -16,6 +16,10 @@ float colourincrement = 1;
 //Loading Image
 PImage img1, img2, img3;
 
+//The fade thing under Eve
+static final int NUM = 0100, NEWEST = NUM - 1;
+final int[] x = new int[NUM], y = new int[NUM];
+
 void setup()
 {
   minim = new Minim(this);
@@ -27,6 +31,10 @@ void setup()
   
   frameRate(30);
   smooth();
+  noCursor();
+  noStroke();
+  
+  for ( int i = NUM; i-- != 0; x[i] = mouseX, y[i] = mouseY);
   
   image();
 }
@@ -37,7 +45,7 @@ void draw()
 
   image(img1, 260, 410, 150, 150);
   image(img3, 480, -10, 700, 400);
-  image(img2, mouseX - 40, mouseY, 100, 100);
+  eve();
 }
 
 void backgroundFade()
@@ -59,6 +67,21 @@ void backgroundFade()
   }
   
   background(Red1, Green1, Blue1);
+}
+
+void eve()
+{
+  //Eve
+  image(img2, mouseX - 40, mouseY, 100, 100);
+  
+  //The fade thing under Eve
+  noStroke();
+  fill(0100 << 030);
+
+  for (int i = 0; i != NEWEST;
+  ellipse(x[i] = x[i + 1], y[i] = y[i + 1], i, i++) );
+  ellipse(x[NEWEST] = mouseX, y[NEWEST] = mouseY + 120, NEWEST, NEWEST);
+  
 }
 
 void image()
