@@ -25,6 +25,12 @@ boolean overBox = false;
 boolean locked = false;
 boolean playing = false;
 
+//Start Box
+float bx = 300;
+float by = 600; //position
+float boxWidth = 500;
+float boxHeight = 70;
+
 void setup()
 {
   minim = new Minim(this);
@@ -48,6 +54,7 @@ void draw()
 {
   backgroundFade();
   font();
+  button();
   
   image(img3, 480, -10, 700, 400);
   walle();
@@ -140,6 +147,34 @@ void image()
   img1 = loadImage("Walle1.png");
   img2 = loadImage("Eve.png");
   img3 = loadImage("Rocket.png");
+}
+
+void button()
+{
+  // Test if the cursor is over the box 
+  if (mouseX > bx-boxWidth && mouseX < bx+boxWidth && 
+      mouseY > by-boxHeight && mouseY < by+boxHeight)
+    {
+    overBox = true;  
+    if(!locked) 
+    { 
+      stroke(153); 
+      fill(200);
+    } 
+  } else {
+    stroke(255);
+    fill(255);
+    overBox = false;
+  }
+
+  rect(bx, by, boxWidth, boxHeight);
+  
+  PFont f = createFont("Impact", 50);
+  String s3 = "START";
+  fill(0);
+  textFont(f);
+  text(s3, bx + 175, by + 55);
+  
 }
 
 void stop()
