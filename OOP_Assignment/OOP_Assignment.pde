@@ -1,3 +1,9 @@
+//Audio
+import ddf.minim.*;
+
+AudioPlayer player;
+Minim minim;//audio context
+
 //Colour of background
 color Red1 = 178;
 color Green1 = 216; 
@@ -9,6 +15,10 @@ float colourincrement = 1;
 
 void setup()
 {
+  minim = new Minim(this);
+  player = minim.loadFile("Walle.mp3", 2048);
+  player.play();
+  
   size(1200, 700);
   background(Red1, Green1, Blue1);
   
@@ -40,4 +50,11 @@ void backgroundFade()
   }
   
   background(Red1, Green1, Blue1);
+}
+
+void stop()
+{
+  player.close();
+  minim.stop();
+  super.stop();
 }
