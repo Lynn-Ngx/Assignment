@@ -13,6 +13,9 @@ color Green2 = 15;
 color Blue2 = 74;
 float colourincrement = 1;
 
+//Loading Image
+PImage img1, img2, img3;
+
 void setup()
 {
   minim = new Minim(this);
@@ -24,11 +27,17 @@ void setup()
   
   frameRate(30);
   smooth();
+  
+  image();
 }
 
 void draw() 
 {
   backgroundFade();
+
+  image(img1, 260, 410, 150, 150);
+  image(img3, 480, -10, 700, 400);
+  image(img2, mouseX - 40, mouseY, 100, 100);
 }
 
 void backgroundFade()
@@ -50,6 +59,14 @@ void backgroundFade()
   }
   
   background(Red1, Green1, Blue1);
+}
+
+void image()
+{
+  // Images must be in the "data" directory to load correctly
+  img1 = loadImage("Walle1.png");
+  img2 = loadImage("Eve.png");
+  img3 = loadImage("Rocket.png");
 }
 
 void stop()
