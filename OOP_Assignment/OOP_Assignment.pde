@@ -20,6 +20,11 @@ PImage img1, img2, img3;
 static final int NUM = 0100, NEWEST = NUM - 1;
 final int[] x = new int[NUM], y = new int[NUM];
 
+//Mouse over
+boolean overBox = false;
+boolean locked = false;
+boolean playing = false;
+
 void setup()
 {
   minim = new Minim(this);
@@ -86,9 +91,30 @@ void eve()
 void walle()
 {
   image(img1, 260, 410, 150, 150);
-  minim = new Minim(this);
-  player = minim.loadFile("WalleVoice.mp3", 2048);
-  player.play(); 
+  
+  // Test if the cursor is over the box 
+  if (mouseX > 260 && mouseX < 460 && 
+      mouseY > 310 && mouseY < 510) 
+  {
+    overBox = true;  
+    if((!locked) && (playing == false)) 
+    { 
+      minim = new Minim(this);
+      player = minim.loadFile("WalleVoice.mp3", 2048);
+      player.play(); 
+      playing = true;
+    }
+  }
+  
+  else if ((overBox == false) && (playing == true))
+  {
+    player.pause();
+    playing = false;
+  }
+  else 
+  {
+     overBox = false;
+  }
 }
 
 void image()
