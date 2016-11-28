@@ -1,5 +1,4 @@
-//lynn nguyen
-
+DigitalClock digitalClock;
 //Audio
 import ddf.minim.*;
 
@@ -42,6 +41,8 @@ void setup()
   size(1200, 700);
   background(Red1, Green1, Blue1);
   
+  digitalClock = new DigitalClock(150, 10, 190);
+  
   frameRate(30);
   smooth();
   noCursor();
@@ -55,6 +56,8 @@ void setup()
 void draw() 
 {
   backgroundFade();
+  digitalClock.getTime();
+  digitalClock.display();
   font();
   button();
   
@@ -154,7 +157,7 @@ void image()
 void button()
 {
   // Test if the cursor is over the box 
-  if (mouseX > bx-boxWidth && mouseX < bx+boxWidth && 
+  if (mouseX > bx && mouseX < bx+boxWidth && 
       mouseY > by-boxHeight && mouseY < by+boxHeight)
     {
     overBox = true;  
