@@ -7,6 +7,8 @@ import ddf.minim.*;
 AudioPlayer player;
 Minim minim;//audio context
 
+int page = 0;
+
 //Colour of background
 color Red1 = 178;
 color Green1 = 216; 
@@ -24,7 +26,8 @@ static final int NUM = 0100, NEWEST = NUM - 1;
 final int[] x = new int[NUM], y = new int[NUM];
 
 //Mouse over
-boolean overBox = false;
+boolean overBox = false; //walle voice
+boolean overBox1 = false; //start box
 boolean locked = false;
 boolean playing = false;
 
@@ -63,21 +66,44 @@ void setup()
 
 void draw() 
 {
+ switch(page)
+  {
+    case 0:
+      page1();
+      println("1");
+      break;
+    case 1:
+      page2();
+       println("2");
+      break;
+  }
+}
+
+void page1()
+{
+  page = 0;
   backgroundFade();
-  
   for(int i = 0; i <= stars.size()-1; i++)
   {
     star starUse = (star) stars.get(i);
     starUse.display();
   }
-  
   digitalClock.getTime();
   digitalClock.display();
+ 
   font();
   button();
   
-  image(img3, 480, -10, 700, 400);
   walle();
+  image(img3, 480, -10, 700, 400);
+  eve();
+}
+
+void page2()
+{
+  page = 1;
+  background(Red1, Green1, Blue1);
+  backgroundFade();
   eve();
 }
 
@@ -174,14 +200,16 @@ void button()
   // Test if the cursor is over the box 
   if (mouseX > bx && mouseX < bx+boxWidth && 
       mouseY > by-boxHeight && mouseY < by+boxHeight)
-    {
+  {
     overBox = true;  
     if(!locked) 
     { 
       stroke(153); 
       fill(200);
+      overBox = false;
     } 
-  } else {
+  } else 
+  {
     stroke(255);
     fill(255);
     overBox = false;
@@ -197,6 +225,20 @@ void button()
   
 }
 
+void mousePressed() 
+{
+  if(overBox1)
+  { 
+    locked = true;
+    page = 1;
+    //overBox1 = false;
+  } 
+   else 
+  {
+    locked = false;
+  }
+}
+  
 void stop()
 {
   player.close();
