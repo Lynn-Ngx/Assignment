@@ -1,4 +1,6 @@
 DigitalClock digitalClock;
+ArrayList stars;
+
 //Audio
 import ddf.minim.*;
 
@@ -41,6 +43,12 @@ void setup()
   size(1200, 700);
   background(Red1, Green1, Blue1);
   
+  stars = new ArrayList();
+  for(int i = 1; i <= 300; i++)
+  {
+    stars.add(new star());
+  }
+  
   digitalClock = new DigitalClock(150, 10, 190);
   
   frameRate(30);
@@ -56,6 +64,13 @@ void setup()
 void draw() 
 {
   backgroundFade();
+  
+  for(int i = 0; i <= stars.size()-1; i++)
+  {
+    star starUse = (star) stars.get(i);
+    starUse.display();
+  }
+  
   digitalClock.getTime();
   digitalClock.display();
   font();
