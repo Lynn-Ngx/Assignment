@@ -8,6 +8,8 @@ AudioPlayer player;
 Minim minim;//audio context
 
 int page = 0;
+int frame = 0;
+int loadingBack = 0;
 
 //Colour of background
 color Red1 = 178;
@@ -19,7 +21,7 @@ color Blue2 = 74;
 float colourincrement = 1;
 
 //Loading Image
-PImage img1, img2, img3;
+PImage img1, img2, img3, img4;
 
 //The fade thing under Eve
 static final int NUM = 0100, NEWEST = NUM - 1;
@@ -56,7 +58,6 @@ void setup()
   
   frameRate(30);
   smooth();
-  noCursor();
   noStroke();
   
   for ( int i = NUM; i-- != 0; x[i] = mouseX, y[i] = mouseY);
@@ -74,7 +75,7 @@ void draw()
       break;
     case 1:
       page2();
-       println("2");
+      println("2");
       break;
   }
 }
@@ -104,6 +105,8 @@ void page2()
   page = 1;
   background(Red1, Green1, Blue1);
   backgroundFade();
+  loading();
+  image(img4, 520, 440, 130, 130);
   eve();
 }
 
@@ -223,6 +226,25 @@ void button()
   textFont(f);
   text(s3, bx + 175, by + 55);
   
+}
+
+void loading()
+{   
+  loadingBack = (int((frameCount - frame %301) / 3 ));
+  PFont f = createFont("Impact", 60);
+  textFont(f);
+  fill(255);
+  text ("LOADING " + int((frameCount - frame %301) / 3 ) + "%", 352, 180);
+  rect(350, 200, 460, 50);
+  fill(0, 0, 0, 60);
+  float fillX = ((frameCount - frame %301) / 3 * 4.5);
+  rect(800, 205, fillX-450, 40);
+    
+  if (loadingBack >= 100)
+  {
+    page = 2;
+    loadingBack = 0;
+  }   
 }
 
 void mousePressed() 
