@@ -33,6 +33,7 @@ final int[] x = new int[NUM], y = new int[NUM];
 //Mouse over
 boolean overBox = false; //walle voice
 boolean overBox1 = false; //start box
+boolean overBox2 = false; //back page 3
 boolean locked = false;
 boolean playing = false;
 
@@ -41,6 +42,12 @@ float bx = 300;
 float by = 600; //position
 float boxWidth = 500;
 float boxHeight = 70;
+
+//Back button
+float bx1 = 20;
+float by1 = 20;
+float boxWidth1 = 180;
+float boxHeight1 = 50;
 
 void setup()
 {
@@ -80,6 +87,10 @@ void draw()
       page2();
       println("2");
       break;
+    case 2:
+      page3();
+      println("3");
+      break;
   }
 }
 
@@ -112,6 +123,14 @@ void page2()
   plant();
   image(img4, 520, 440, 130, 130);
   eve();
+}
+
+void page3()
+{
+  cursor();
+  page = 2;
+  background(178, 216, 264);
+  back();
 }
 
 void font()
@@ -299,6 +318,48 @@ void branch(float h)
   }
 }
 
+void back()
+{
+  pushMatrix();
+  //overBox2 = false; 
+  strokeWeight(1);
+  PFont f = createFont("Impact", 30);
+  PFont f2 = createFont("Impact", 70);
+  String s = "BACK";
+  String s2 = "Choose a character";
+  //fill(255);
+  textFont(f);
+  fill(0);
+  text(s, 90, 55);
+  textFont(f2);
+  fill(255);
+  text(s2, 300, 200);
+  popMatrix();
+  
+   // Test if the cursor is over the box 
+  if (mouseX > bx1 && mouseX < bx1+boxWidth1 && 
+      mouseY > by1 && mouseY < by1+boxHeight1)
+  {
+    overBox2 = true;  
+    if(!locked) 
+    { 
+       stroke(9, 18, 72); 
+       fill(33, 127, 121, 100);
+       overBox2 = false;
+    } 
+  } 
+  
+  else
+  {
+     stroke(255, 255, 255, 100);
+     fill(255, 255, 255, 150);
+  }
+  
+  rect(20, 20, 180, 50);
+  noStroke();
+  triangle(30, 45, 65, 25, 65, 65);
+}
+
 void mousePressed() 
 {
   if(overBox1)
@@ -309,6 +370,13 @@ void mousePressed()
     overBox1 = false;
   } 
 
+ if(overBox2)
+  { 
+    locked = true; 
+    frame = frameCount;
+    page = 0;
+  } 
+  
    else 
   {
     locked = false;
