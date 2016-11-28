@@ -34,6 +34,8 @@ final int[] x = new int[NUM], y = new int[NUM];
 boolean overBox = false; //walle voice
 boolean overBox1 = false; //start box
 boolean overBox2 = false; //back page 3
+boolean overBox3 = false; //eve
+boolean overBox4 = false; //walle
 boolean locked = false;
 boolean playing = false;
 
@@ -48,6 +50,9 @@ float bx1 = 20;
 float by1 = 20;
 float boxWidth1 = 180;
 float boxHeight1 = 50;
+
+//choose
+float bw = 300;
 
 void setup()
 {
@@ -130,6 +135,7 @@ void page3()
   cursor();
   page = 2;
   background(178, 216, 264);
+  choose();
   back();
 }
 
@@ -358,6 +364,50 @@ void back()
   rect(20, 20, 180, 50);
   noStroke();
   triangle(30, 45, 65, 25, 65, 65);
+}
+
+void choose()
+{
+  // Test if the cursor is over the box 
+  if (mouseX > 200 && mouseX < 200+bw && 
+      mouseY > 300 && mouseY < 300+bw)
+  {
+    overBox3 = true;  
+    if(!locked) 
+    { 
+      stroke(255);
+      strokeWeight(10);
+      noFill();
+      rect(200, 300, 300, 300, 15);
+    } 
+  } 
+  
+  if (mouseX > 650 && mouseX < 650+bw && 
+      mouseY > 300 && mouseY < 300+bw)
+  {
+    overBox4 = true;  
+    if(!locked) 
+    { 
+      stroke(255);
+      strokeWeight(10);
+      noFill();
+      rect(650, 300, 300, 300, 15);
+      stroke(255);
+      strokeWeight(1);
+      rect(200, 300, 300, 300, 15);
+    } 
+  } 
+  
+  else 
+  {
+    stroke(255);
+    strokeWeight(1);
+    noFill();
+    rect(200, 300, 300, 300, 15);
+    //overBox3 = false;
+    rect(650, 300, 300, 300, 15);
+    overBox4 = false;
+  }
 }
 
 void mousePressed() 
