@@ -1,5 +1,6 @@
 DigitalClock digitalClock;
 ArrayList stars;
+Star2 displayStar;
 
 //Audio
 import ddf.minim.*;
@@ -24,7 +25,7 @@ color Blue2 = 74;
 float colourincrement = 1;
 
 //Loading Image
-PImage img1, img2, img3, img4;
+PImage img1, img2, img3, img4, img5, img6;
 
 //The fade thing under Eve
 static final int NUM = 0100, NEWEST = NUM - 1;
@@ -124,6 +125,11 @@ void page2()
   page = 1;
   background(Red1, Green1, Blue1);
   backgroundFade();
+  for (int i =0; i < 5; i++)
+  {
+    Star2 s = new Star2 (random(width),random(height), 3.5, 7, int(random(4,6)));
+    s.drawStar();
+  }
   loading();
   plant();
   image(img4, 520, 440, 130, 130);
@@ -226,6 +232,8 @@ void image()
   img2 = loadImage("Eve.png");
   img3 = loadImage("Rocket.png");
   img4 = loadImage("boot3.png");
+  img5 = loadImage("eve2.png");
+  img6 = loadImage("walle3.png");
 }
 
 void button()
@@ -368,6 +376,9 @@ void back()
 
 void choose()
 {
+  image(img5, 230, 320, 250, 250);
+  image(img6, 675, 320, 250, 250);
+  
   // Test if the cursor is over the box 
   if (mouseX > 200 && mouseX < 200+bw && 
       mouseY > 300 && mouseY < 300+bw)
@@ -423,7 +434,6 @@ void mousePressed()
  if(overBox2)
   { 
     locked = true; 
-    frame = frameCount;
     page = 0;
   } 
   
