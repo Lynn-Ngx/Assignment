@@ -1,7 +1,6 @@
-
 class Clock 
 {
-  int h, m, s;
+  int h, m, s; //variable for time
   Clock() 
   {
   }
