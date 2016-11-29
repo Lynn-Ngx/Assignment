@@ -220,7 +220,7 @@ void backgroundFade()
 
 void eve()
 {
-  noCuror();
+  noCursor();
   //Eve
   image(img2, mouseX - 40, mouseY, 100, 100);
   
@@ -545,6 +545,7 @@ void mousePressed()
   { 
     locked = true; 
     page = 2;
+    score = 0;
     overBox5 = false;
     locked = false;
   }
@@ -553,6 +554,8 @@ void mousePressed()
   {
     locked = false;
   }
+  
+  shoot = true;
 }
 
 void gameEve()
@@ -579,6 +582,61 @@ void gameEve()
    Finish();  
 }
 
+void Fall()
+{ 
+  stroke(39, 154, 240); 
+  fill (255, 0 ,0); 
+    
+  for (int i=0; i<5; i++)
+  {
+    ellipse(ballx[i], bally[i]++, Size, Size);
+  }
+    
+  stroke(255);
+  noFill();
+  ellipse(mouseX, mouseY, 10, 10);
+  ellipse(mouseX, mouseY, 15, 15);
+  ellipse(mouseX, mouseY, 20, 20);
+}
+  
+void cannon(int shotX)
+{
+  boolean strike = false;
+  for (int i = 0; i < 5; i++)
+  {
+    if((shotX >= (ballx[i]-Size/2)) && (shotX <= (ballx[i] + Size/2))) 
+    {
+      strike = true;
+      line(mouseX, 565, mouseX, bally[i]);
+      ellipse(ballx[i], bally[i], Size+25, Size+25);
+      ballx[i] = randomX();
+      bally[i] = 0;
+      score++;
+    }    
+  }
+  
+  if(strike == false)
+  {
+    line(mouseX, 565, mouseX, 0);
+  }   
+}
+
+void Finish()
+{
+  for (int i=0; i< 5; i++)
+  {
+    if(bally[i]==530)
+    {
+      fill(color(255));
+      fill(255);
+      textAlign(CENTER);
+      text("GAME OVER", width/2, height/2);
+      text("Your score was : "+ score, width/2, height/2 + 50); 
+      noLoop();
+      cursor();
+     }
+  }
+}
   
 void stop()
 {
