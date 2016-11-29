@@ -58,6 +58,19 @@ float boxHeight1 = 50;
 //choose
 float bw = 300;
 
+//game
+int score;
+int Size = 20;
+boolean shoot = false;
+int gameOver = 0;
+int randomX()
+{
+  return int(random(900));
+}
+
+int[] ballx = { randomX(), randomX(), randomX(), randomX(), randomX() };
+int[] bally = { 0, 0, 0, 0, 0 };
+
 void setup()
 {
   minim = new Minim(this);
@@ -157,6 +170,7 @@ void page4()
   //page = 3;
   background(0);
   back2();
+  gameEve();
 }
 
 //walle game
@@ -206,6 +220,7 @@ void backgroundFade()
 
 void eve()
 {
+  noCuror();
   //Eve
   image(img2, mouseX - 40, mouseY, 100, 100);
   
@@ -540,15 +555,30 @@ void mousePressed()
   }
 }
 
-void resetBoolean()
+void gameEve()
 {
-  boolean overBox = false; //walle voice
-  boolean overBox1 = false; //start box
-  boolean overBox2 = false; //back 
-  boolean overBox3 = false; //eve
-  boolean overBox4 = false; //walle
-  boolean locked = false; 
+  noCursor();
+  fill(255);
+  stroke (200);
+  
+  ellipse(mouseX-26, 620, 50, 80); //body
+  ellipse(mouseX, 590, 20, 60);
+  ellipse(mouseX - 44, 625, 25, 57);
+  ellipse(mouseX-26, 580, 55, 40);
+
+  // display score
+  fill(255);
+  text(score, 1100 ,65);
+  if(shoot)
+  {
+    cannon(mouseX);
+    shoot = false;
+  }
+  
+   Fall();
+   Finish();  
 }
+
   
 void stop()
 {
