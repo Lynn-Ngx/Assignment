@@ -179,6 +179,7 @@ void page5()
   //page = 4;
   background(0);
   back2();
+  gameWalle();
 }
 
 void font()
@@ -582,6 +583,34 @@ void gameEve()
    Finish();  
 }
 
+void gameWalle()
+{
+  noCursor();
+  fill(255, 161, 70);
+  rect(mouseX+8, 600, 60, 60 ,15);
+  
+  fill(200);
+  rect(mouseX, 640, 20, 50, 15);
+  rect(mouseX + 60, 640, 20, 50 ,15);
+  rect(mouseX+33, 585, 10, 20 ,15);
+  stroke(100);
+  rect(mouseX + 10, 566, 25, 25, 5 );
+  rect(mouseX + 40, 565, 25, 25, 5);
+  rect(mouseX, 570, 10, 50, 5);
+
+  // display score
+  fill(255);
+  text(score, 1100 ,65);
+  if(shoot)
+  {
+    cannon(mouseX);
+    shoot = false;
+  }
+  
+  Fall();
+  Finish();  
+}
+
 void Fall()
 { 
   stroke(39, 154, 240); 
@@ -625,15 +654,13 @@ void Finish()
 {
   for (int i=0; i< 5; i++)
   {
-    if(bally[i]==530)
+    if(bally[i]==550)
     {
       fill(color(255));
       fill(255);
-      textAlign(CENTER);
-      text("GAME OVER", width/2, height/2);
-      text("Your score was : "+ score, width/2, height/2 + 50); 
+      text("GAME OVER", 400, 300);
+      text("Your score was : "+ score, 400, 380); 
       noLoop();
-      cursor();
      }
   }
 }
