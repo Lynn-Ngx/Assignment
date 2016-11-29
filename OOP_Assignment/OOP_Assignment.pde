@@ -11,6 +11,7 @@ Minim minim;//audio context
 int page = 0;
 int frame = 0;
 int loadingBack = 0;
+float fillX = 0;
 
 int growth = 0;
 float theta;
@@ -28,13 +29,13 @@ float colourincrement = 1;
 PImage img1, img2, img3, img4, img5, img6;
 
 //The fade thing under Eve
-static final int NUM = 0100, NEWEST = NUM - 1;
-final int[] x = new int[NUM], y = new int[NUM];
+int NUM = 0100, N = NUM - 1;
+int[] x = new int[NUM], y = new int[NUM];
 
 //Mouse over
 boolean overBox = false; //walle voice
 boolean overBox1 = false; //start box
-boolean overBox2 = false; //back page 3
+boolean overBox2 = false; //back 
 boolean overBox3 = false; //eve
 boolean overBox4 = false; //walle
 boolean locked = false;
@@ -76,7 +77,7 @@ void setup()
   smooth();
   noStroke();
   
-  for ( int i = NUM; i-- != 0; x[i] = mouseX, y[i] = mouseY);
+  for(int i = NUM; i-- != 0; x[i] = mouseX, y[i] = mouseY);
   
   image();
 }
@@ -87,22 +88,19 @@ void draw()
   {
     case 0:
       page1();
-      println("1");
       break;
     case 1:
       page2();
-      println("2");
       break;
     case 2:
       page3();
-      println("3");
       break;
   }
 }
 
 void page1()
 {
-  page = 0;
+  //page = 0;
   backgroundFade();
   for(int i = 0; i <= stars.size()-1; i++)
   {
@@ -122,7 +120,7 @@ void page1()
 
 void page2()
 {
-  page = 1;
+  //page = 1;
   background(Red1, Green1, Blue1);
   backgroundFade();
   for (int i =0; i < 5; i++)
@@ -138,8 +136,7 @@ void page2()
 
 void page3()
 {
-  cursor();
-  page = 2;
+  //page = 2;
   background(178, 216, 264);
   choose();
   back();
@@ -191,9 +188,9 @@ void eve()
   noStroke();
   fill(0100 << 030);
 
-  for (int i = 0; i != NEWEST;
-  ellipse(x[i] = x[i + 1], y[i] = y[i + 1], i, i++) );
-  ellipse(x[NEWEST] = mouseX, y[NEWEST] = mouseY + 120, NEWEST, NEWEST);
+  for (int i = 0; i != N; 
+  ellipse(x[i] = x[i + 1], y[i] = y[i + 1], i, i++) ); 
+  ellipse(x[N] = mouseX, y[N] = mouseY + 120, N, N);
 }
 
 void walle()
@@ -247,7 +244,6 @@ void button()
     { 
       stroke(160); 
       fill(150);
-      overBox=false;
     } 
   } 
   
@@ -267,22 +263,30 @@ void button()
 }
 
 void loading()
-{   
+{  
   loadingBack = (int((frameCount - frame %301) / 3 ));
   PFont f = createFont("Impact", 60);
   textFont(f);
   fill(255);
-  text ("LOADING " + int((frameCount - frame %301) / 3 ) + "%", 352, 180);
+  text ("LOADING " + loadingBack + "%", 352, 180);
   rect(350, 200, 460, 50);
   fill(0, 0, 0, 60);
-  float fillX = ((frameCount - frame %301) / 3 * 4.5);
+  fillX = ((frameCount - frame %301) / 3 * 4.5);
   rect(800, 205, fillX-450, 40);
-    
-  if (loadingBack >= 100)
+  println ("Loading: "+loadingBack);
+  println ("fillX: "+fillX);
+  
+  if (loadingBack >= 100 || fillX >= 450)
   {
-    page = 2;
+    frameCount = 0;
     loadingBack = 0;
-  }   
+    frame = 0;
+    fillX = 0;
+    page = 2;
+    
+    println ("Loading: "+loadingBack);
+    println ("fillX: "+fillX);
+  }  
 }
 
 void plant()
@@ -359,7 +363,6 @@ void back()
     { 
        stroke(9, 18, 72); 
        fill(33, 127, 121, 100);
-       overBox2 = false;
     } 
   } 
   
@@ -429,18 +432,31 @@ void mousePressed()
     frame = frameCount;
     page = 1;
     overBox1 = false;
+    locked = false;
   } 
 
  if(overBox2)
   { 
     locked = true; 
     page = 0;
+    overBox2 = false;
+    locked = false;
   } 
   
    else 
   {
     locked = false;
   }
+}
+
+void resetBoolean()
+{
+  boolean overBox = false; //walle voice
+  boolean overBox1 = false; //start box
+  boolean overBox2 = false; //back 
+  boolean overBox3 = false; //eve
+  boolean overBox4 = false; //walle
+  boolean locked = false; 
 }
   
 void stop()
