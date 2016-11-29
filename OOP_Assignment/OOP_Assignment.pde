@@ -38,8 +38,10 @@ boolean overBox1 = false; //start box
 boolean overBox2 = false; //back 
 boolean overBox3 = false; //eve
 boolean overBox4 = false; //walle
+boolean overBox5 = false; //back2
 boolean locked = false;
 boolean playing = false;
+boolean resetFrame = false;
 
 //Start Box
 float bx = 300;
@@ -95,6 +97,12 @@ void draw()
     case 2:
       page3();
       break;
+    case 3:
+      page4();
+      break;
+    case 4:
+      page5();
+      break;
   }
 }
 
@@ -136,10 +144,27 @@ void page2()
 
 void page3()
 {
+  cursor();
   //page = 2;
   background(178, 216, 264);
   choose();
   back();
+}
+
+//eve game
+void page4()
+{
+  //page = 3;
+  background(0);
+  back2();
+}
+
+//walle game
+void page5()
+{
+  //page = 4;
+  background(0);
+  back2();
 }
 
 void font()
@@ -263,7 +288,15 @@ void button()
 }
 
 void loading()
-{  
+{ 
+  if (resetFrame == false)
+  {
+    frameCount = 0;
+    loadingBack = 0;
+    frame = 0;
+    fillX = 0;
+    resetFrame = true;
+  }
   loadingBack = (int((frameCount - frame %301) / 3 ));
   PFont f = createFont("Impact", 60);
   textFont(f);
@@ -377,6 +410,40 @@ void back()
   triangle(30, 45, 65, 25, 65, 65);
 }
 
+void back2()
+{
+  strokeWeight(1);
+  PFont f = createFont("Impact", 30);
+  String s = "BACK";
+  textFont(f);
+  fill(255);
+  text(s, 90, 55);
+  
+  // Test if the cursor is over the box 
+  if (mouseX > bx1 && mouseX < bx1+boxWidth1 && 
+      mouseY > by1 && mouseY < by1+boxHeight1)
+  {
+    overBox5 = true;  
+    if(!locked) 
+    { 
+       stroke(255, 255, 255); 
+       fill(33, 127, 121, 100);
+       //overBox5 = false;
+    } 
+  } 
+  
+  else
+  {
+     stroke(255, 255, 255, 100);
+     fill(255, 255, 255, 150);
+     overBox5 = false;
+  }
+  
+  rect(20, 20, 180, 50);
+  noStroke();
+  triangle(30, 45, 65, 25, 65, 65);
+}
+
 void choose()
 {
   image(img5, 230, 320, 250, 250);
@@ -442,6 +509,30 @@ void mousePressed()
     overBox2 = false;
     locked = false;
   } 
+  
+  if(overBox3)
+  { 
+    locked = true; 
+    page = 3;
+    overBox3 = false;
+    locked = false;
+  } 
+  
+   if(overBox4)
+  { 
+    locked = true; 
+    page = 4;
+    overBox4 = false;
+    locked = false;
+  }
+  
+  if(overBox5)
+  { 
+    locked = true; 
+    page = 2;
+    overBox5 = false;
+    locked = false;
+  }
   
    else 
   {
